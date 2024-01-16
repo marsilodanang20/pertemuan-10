@@ -1,0 +1,108 @@
+Microsoft Windows [Version 10.0.22621.2861]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Windows\System32>cd\
+
+C:\>c:
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 79
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database apotek2;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use apotek2;
+Database changed
+MariaDB [apotek2]> create table obat(
+    -> id int primary key auto_increment,
+    -> kdobat varchar(10) unique,
+    -> nama varchar(100),
+    -> berat varchar(10),
+    -> bentuk varchar(50));
+Query OK, 0 rows affected (0.033 sec)
+
+MariaDB [apotek2]> show tables;
++-------------------+
+| Tables_in_apotek2 |
++-------------------+
+| obat              |
++-------------------+
+1 row in set (0.001 sec)
+
+MariaDB [apotek2]> insert into obat(kdobat,nama,berat,bentuk)values('1001','flutamol','500','kapsul');
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [apotek2]> insert into obat(kdobat,nama,berat,bentuk)values('1002','vitamin c','500','sirup');
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [apotek2]> insert into obat(kdobat,nama,berat,bentuk)values('1003','konidin','200','tablet');
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [apotek2]> insert into obat(kdobat,nama,berat,bentuk)values('1002','vitamin c','500','sirup');
+ERROR 1062 (23000): Duplicate entry '1002' for key 'kdobat'
+MariaDB [apotek2]> insert into obat(kdobat,nama,berat,bentuk)values('1004','bodrex extra','500','tablet');
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [apotek2]> insert into obat(kdobat,nama,berat,bentuk)values('1005','panadol','500','tablet');
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [apotek2]> select*from obat;
++----+--------+--------------+-------+--------+
+| id | kdobat | nama         | berat | bentuk |
++----+--------+--------------+-------+--------+
+|  1 | 1001   | flutamol     | 500   | kapsul |
+|  2 | 1002   | vitamin c    | 500   | sirup  |
+|  3 | 1003   | konidin      | 200   | tablet |
+|  5 | 1004   | bodrex extra | 500   | tablet |
+|  6 | 1005   | panadol      | 500   | tablet |
++----+--------+--------------+-------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [apotek2]> update from obat set nama='oskadon' whwere id='1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from obat set nama='oskadon' whwere id='1'' at line 1
+MariaDB [apotek2]> update obat set nama='oskadon' whwere id='1';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'whwere id='1'' at line 1
+MariaDB [apotek2]> update obat set nama='oskadon' where id='1';
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [apotek2]> select*from obat;
++----+--------+--------------+-------+--------+
+| id | kdobat | nama         | berat | bentuk |
++----+--------+--------------+-------+--------+
+|  1 | 1001   | oskadon      | 500   | kapsul |
+|  2 | 1002   | vitamin c    | 500   | sirup  |
+|  3 | 1003   | konidin      | 200   | tablet |
+|  5 | 1004   | bodrex extra | 500   | tablet |
+|  6 | 1005   | panadol      | 500   | tablet |
++----+--------+--------------+-------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [apotek2]> delete from obat where id='1';
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [apotek2]> select*from obat;
++----+--------+--------------+-------+--------+
+| id | kdobat | nama         | berat | bentuk |
++----+--------+--------------+-------+--------+
+|  2 | 1002   | vitamin c    | 500   | sirup  |
+|  3 | 1003   | konidin      | 200   | tablet |
+|  5 | 1004   | bodrex extra | 500   | tablet |
+|  6 | 1005   | panadol      | 500   | tablet |
++----+--------+--------------+-------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [apotek2]>
